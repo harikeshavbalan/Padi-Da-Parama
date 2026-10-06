@@ -17,12 +17,16 @@ public class DatabaseConnectivityTest {
             System.out.println(">>> Connected to Supabase: " + meta.getDatabaseProductName() + " " + meta.getDatabaseProductVersion());
 
             try (Statement stmt = conn.createStatement();
-                 ResultSet rs = stmt.executeQuery("SELECT id, username, full_name FROM users WHERE username = 'demo'")) {
-                if (rs.next()) {
-                    System.out.println(">>> Demo user confirmed in database: ID=" + rs.getInt("id") + ", Name=" + rs.getString("full_name"));
-                } else {
-                    System.out.println(">>> Demo user NOT found!");
+                 ResultSet rs = stmt.executeQuery("SELECT t.id, t.day_of_week, t.start_time, t.end_time, t.room, t.faculty, s.name as subject_name " +
+                                                  "FROM timetable t JOIN subjects s ON t.subject_id = s.id " +
+                                                  "WHERE t.user_id = 1 ORDER BY t.day_of_week, t.start_time")) {
+                System.out.println(">>> Existing Timetable entries for user 1:");
+                int count = 0;
+                while (rs.next()) {
+                    count++;
+                    System.out.println("    " + rs.getString("day_of_week") + " | " + rs.getTime("start_time") + " - " + rs.getTime("end_time") + " | " + rs.getString("subject_name") + " | Room: " + rs.getString("room") + " | " + rs.getString("faculty"));
                 }
+                System.out.println(">>> Total timetable entries: " + count);
             }
 
             com.studentlife.service.AuthenticationService auth = new com.studentlife.service.AuthenticationService();

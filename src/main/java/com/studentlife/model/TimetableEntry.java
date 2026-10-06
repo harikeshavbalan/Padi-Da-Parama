@@ -54,4 +54,52 @@ public class TimetableEntry {
 
     public Timestamp getCreatedAt() { return createdAt; }
     public void setCreatedAt(Timestamp createdAt) { this.createdAt = createdAt; }
+
+    public String getFormattedStartTime() {
+        if (startTime == null) return "";
+        try {
+            java.time.LocalTime lt = startTime.toLocalTime();
+            return lt.format(java.time.format.DateTimeFormatter.ofPattern("hh:mm a"));
+        } catch (Exception e) {
+            return startTime.toString().substring(0, 5);
+        }
+    }
+
+    public String getFormattedEndTime() {
+        if (endTime == null) return "";
+        try {
+            java.time.LocalTime lt = endTime.toLocalTime();
+            return lt.format(java.time.format.DateTimeFormatter.ofPattern("hh:mm a"));
+        } catch (Exception e) {
+            return endTime.toString().substring(0, 5);
+        }
+    }
+
+    public String getDurationFormatted() {
+        if (startTime == null || endTime == null) return "";
+        long minutes = java.time.Duration.between(startTime.toLocalTime(), endTime.toLocalTime()).toMinutes();
+        if (minutes <= 0) return "";
+        long h = minutes / 60;
+        long m = minutes % 60;
+        if (h > 0 && m > 0) return h + "h " + m + "m";
+        if (h > 0) return h + "h";
+        return m + "m";
+    }
+
+    public int getDurationMinutes() {
+        if (startTime == null || endTime == null) return 0;
+        return (int) java.time.Duration.between(startTime.toLocalTime(), endTime.toLocalTime()).toMinutes();
+    }
+
+    public int getStartMinutesOfDay() {
+        if (startTime == null) return 0;
+        java.time.LocalTime lt = startTime.toLocalTime();
+        return lt.getHour() * 60 + lt.getMinute();
+    }
+
+    public int getEndMinutesOfDay() {
+        if (endTime == null) return 0;
+        java.time.LocalTime lt = endTime.toLocalTime();
+        return lt.getHour() * 60 + lt.getMinute();
+    }
 }

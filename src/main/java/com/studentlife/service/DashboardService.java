@@ -59,11 +59,13 @@ public class DashboardService {
         s.setCompletedTaskCount(taskDAO.countCompleted(userId));
         s.setOverdueTaskCount(taskDAO.countOverdue(userId));
 
-        // 3. Timetable Schedule & Next Class
+        // 3. Timetable Schedule: Current ongoing class, next upcoming class, today's schedule, and full weekly schedule
         String dayOfWeek = s.getCurrentDayName();
         Time sqlTime = Time.valueOf(nowTime);
         s.setTodaySchedule(timetableDAO.findByDay(userId, dayOfWeek));
+        s.setCurrentClass(timetableDAO.findCurrentClass(userId, dayOfWeek, sqlTime));
         s.setNextClass(timetableDAO.findNextClass(userId, dayOfWeek, sqlTime));
+        s.setWeeklySchedule(timetableDAO.findAllByUserId(userId));
 
         // 4. Upcoming Key Items
         s.setNextDeadline(deadlineDAO.findNextDeadline(userId));

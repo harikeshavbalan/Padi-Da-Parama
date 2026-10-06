@@ -64,12 +64,36 @@ public class TimetableDAO {
         return list;
     }
 
+    public TimetableEntry findCurrentClass(int userId, String dayOfWeek, Time currentTime) {
+        String sql = "SELECT t.*, s.name AS subject_name, s.course_code, s.color AS subject_color " +
+                     "FROM timetable t " +
+                     "JOIN subjects s ON t.subject_id = s.id " +
+                     "WHERE t.user_id = ? AND LOWER(t.day_of_week) = LOWER(?) " +
+                     "  AND t.start_time <= ? AND t.end_time > ? " +
+                     "ORDER BY t.start_time ASC LIMIT 1";
+        try (Connection conn = DatabaseConnection.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setInt(1, userId);
+            ps.setString(2, dayOfWeek);
+            ps.setTime(3, currentTime);
+            ps.setTime(4, currentTime);
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    return mapRowToEntry(rs);
+                }
+            }
+        } catch (SQLException e) {
+            LOGGER.log(Level.WARNING, "Error finding current ongoing class: " + e.getMessage());
+        }
+        return null;
+    }
+
     public TimetableEntry findNextClass(int userId, String dayOfWeek, Time currentTime) {
         // First check remaining today
         String sqlToday = "SELECT t.*, s.name AS subject_name, s.course_code, s.color AS subject_color " +
                           "FROM timetable t " +
                           "JOIN subjects s ON t.subject_id = s.id " +
-                          "WHERE t.user_id = ? AND LOWER(t.day_of_week) = LOWER(?) AND t.start_time >= ? " +
+                          "WHERE t.user_id = ? AND LOWER(t.day_of_week) = LOWER(?) AND t.start_time > ? " +
                           "ORDER BY t.start_time ASC LIMIT 1";
         try (Connection conn = DatabaseConnection.getConnection();
              PreparedStatement ps = conn.prepareStatement(sqlToday)) {

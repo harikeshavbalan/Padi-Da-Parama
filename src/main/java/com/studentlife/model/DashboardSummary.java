@@ -1,7 +1,9 @@
 package com.studentlife.model;
 
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 public class DashboardSummary {
     private String greeting;
@@ -15,8 +17,10 @@ public class DashboardSummary {
     private int overdueTaskCount;
 
     // Classes
+    private TimetableEntry currentClass;
     private TimetableEntry nextClass;
     private List<TimetableEntry> todaySchedule = new ArrayList<>();
+    private List<TimetableEntry> weeklySchedule = new ArrayList<>();
 
     // Deadlines & Exams
     private Deadline nextDeadline;
@@ -61,11 +65,42 @@ public class DashboardSummary {
     public int getOverdueTaskCount() { return overdueTaskCount; }
     public void setOverdueTaskCount(int overdueTaskCount) { this.overdueTaskCount = overdueTaskCount; }
 
+    public TimetableEntry getCurrentClass() { return currentClass; }
+    public void setCurrentClass(TimetableEntry currentClass) { this.currentClass = currentClass; }
+
     public TimetableEntry getNextClass() { return nextClass; }
     public void setNextClass(TimetableEntry nextClass) { this.nextClass = nextClass; }
 
     public List<TimetableEntry> getTodaySchedule() { return todaySchedule; }
     public void setTodaySchedule(List<TimetableEntry> todaySchedule) { this.todaySchedule = todaySchedule; }
+
+    public List<TimetableEntry> getWeeklySchedule() { return weeklySchedule; }
+    public void setWeeklySchedule(List<TimetableEntry> weeklySchedule) { this.weeklySchedule = weeklySchedule; }
+
+    public boolean isHasCurrentClass() { return currentClass != null; }
+    public boolean isHasClassesToday() { return todaySchedule != null && !todaySchedule.isEmpty(); }
+    public int getClassesTodayCount() { return todaySchedule != null ? todaySchedule.size() : 0; }
+
+    public Map<String, List<TimetableEntry>> getScheduleByDayMap() {
+        Map<String, List<TimetableEntry>> map = new LinkedHashMap<>();
+        String[] days = {"Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"};
+        for (String d : days) {
+            map.put(d, new ArrayList<>());
+        }
+        if (weeklySchedule != null) {
+            for (TimetableEntry t : weeklySchedule) {
+                if (t.getDayOfWeek() != null) {
+                    for (String d : days) {
+                        if (d.equalsIgnoreCase(t.getDayOfWeek().trim())) {
+                            map.get(d).add(t);
+                            break;
+                        }
+                    }
+                }
+            }
+        }
+        return map;
+    }
 
     public Deadline getNextDeadline() { return nextDeadline; }
     public void setNextDeadline(Deadline nextDeadline) { this.nextDeadline = nextDeadline; }
