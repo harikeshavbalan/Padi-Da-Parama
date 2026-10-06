@@ -17,13 +17,21 @@ public class DatabaseConnectivityTest {
             System.out.println(">>> Connected to Supabase: " + meta.getDatabaseProductName() + " " + meta.getDatabaseProductVersion());
 
             try (Statement stmt = conn.createStatement();
-                 ResultSet rs = stmt.executeQuery("SELECT count(*) FROM users")) {
+                 ResultSet rs = stmt.executeQuery("SELECT id, username, full_name FROM users WHERE username = 'demo'")) {
                 if (rs.next()) {
-                    System.out.println(">>> Total users found: " + rs.getInt(1));
+                    System.out.println(">>> Demo user confirmed in database: ID=" + rs.getInt("id") + ", Name=" + rs.getString("full_name"));
+                } else {
+                    System.out.println(">>> Demo user NOT found!");
                 }
             }
+
+            com.studentlife.service.AuthenticationService auth = new com.studentlife.service.AuthenticationService();
+            com.studentlife.model.User authenticatedUser = auth.authenticate("demo", "demo123");
+            org.junit.jupiter.api.Assertions.assertNotNull(authenticatedUser, "Authentication should succeed for demo/demo123");
+            System.out.println(">>> Authentication SUCCESS for: " + authenticatedUser.getUsername() + " (" + authenticatedUser.getFullName() + ")");
         } catch (Exception e) {
-            System.out.println(">>> Note: Database connection test skipped or offline: " + e.getMessage());
+            e.printStackTrace();
+            org.junit.jupiter.api.Assertions.fail("Database connection failed: " + e.getMessage());
         }
     }
 }
