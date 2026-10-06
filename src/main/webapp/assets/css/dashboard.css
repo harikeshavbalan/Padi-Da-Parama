@@ -1,0 +1,365 @@
+/* ============================================================
+   STUDENT LIFE MANAGER - DASHBOARD STYLES (WHITE DOMINANT MARVEL THEME)
+   ============================================================ */
+
+.dashboard-hero {
+    background: #ffffff;
+    border: 1px solid #fee2e2;
+    border-left: 6px solid var(--marvel-red);
+    border-radius: var(--radius-lg);
+    padding: 1.75rem 2rem;
+    margin-bottom: 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 4px 16px rgba(237, 29, 36, 0.06);
+}
+
+.hero-greeting {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    letter-spacing: -0.5px;
+    font-family: var(--font-sans);
+}
+
+.hero-date {
+    color: var(--text-secondary);
+    font-size: 0.95rem;
+    font-weight: 500;
+    margin-top: 0.35rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.hero-productivity-badge {
+    text-align: right;
+    background: #ffffff;
+    border: 1px solid #fee2e2;
+    padding: 0.75rem 1.25rem;
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-sm);
+}
+
+.hero-score-val {
+    font-size: 2.2rem;
+    font-weight: 700;
+    color: var(--marvel-red);
+    font-family: var(--font-comic);
+    letter-spacing: 1px;
+    line-height: 1;
+}
+
+.hero-score-label {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    margin-top: 0.25rem;
+}
+
+/* Stat Grid */
+.stat-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1.25rem;
+    margin-bottom: 2rem;
+}
+
+/* Next Class Highlight Banner - Marvel White Dominant Edition */
+.next-class-card {
+    background: #ffffff;
+    border: 1px solid #fee2e2;
+    border-left: 6px solid var(--marvel-red);
+    border-radius: var(--radius-lg);
+    padding: 1.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+    box-shadow: 0 4px 16px rgba(237, 29, 36, 0.08);
+    color: var(--text-primary);
+}
+
+.class-tag {
+    font-size: 0.78rem;
+    font-weight: 700;
+    color: var(--marvel-red);
+    font-family: var(--font-comic);
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+}
+
+.class-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin: 0.25rem 0;
+    font-family: var(--font-sans);
+}
+
+.class-meta {
+    display: flex;
+    align-items: center;
+    gap: 1.25rem;
+    color: var(--text-secondary);
+    font-size: 0.92rem;
+    font-weight: 500;
+}
+
+.class-meta-item {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+}
+
+/* Dashboard Two-Column Layout */
+.dashboard-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 2rem;
+}
+
+@media (max-width: 1024px) {
+    .dashboard-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Task Checklist */
+.task-checklist {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.task-item {
+    background-color: #ffffff;
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    padding: 0.85rem 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    box-shadow: var(--shadow-sm);
+    transition: var(--transition);
+}
+
+.task-item:hover {
+    border-color: var(--marvel-red-border);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(237, 29, 36, 0.08);
+}
+
+.task-item.completed {
+    opacity: 0.65;
+    background-color: #f8fafc;
+}
+
+.task-item.completed .task-title {
+    text-decoration: line-through;
+    color: var(--text-muted);
+}
+
+.task-left {
+    display: flex;
+    align-items: center;
+    gap: 0.85rem;
+    flex: 1;
+}
+
+.custom-checkbox {
+    width: 22px;
+    height: 22px;
+    border-radius: 6px;
+    border: 1.5px solid var(--border-color);
+    background: #ffffff;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    transition: var(--transition);
+    flex-shrink: 0;
+}
+
+.custom-checkbox:hover {
+    border-color: var(--marvel-red);
+    background: var(--marvel-light-red);
+}
+
+.custom-checkbox.checked {
+    background: var(--success);
+    border-color: var(--success);
+    color: white;
+}
+
+.task-title {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+.task-subtext {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    margin-top: 0.15rem;
+}
+
+/* Upcoming Row Cards */
+.upcoming-row {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+
+.upcoming-card {
+    background: #ffffff;
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    padding: 1rem 1.25rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    box-shadow: var(--shadow-sm);
+    transition: var(--transition);
+}
+
+.upcoming-card:hover {
+    border-color: var(--marvel-red-border);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(237, 29, 36, 0.08);
+}
+
+.upcoming-icon {
+    width: 44px;
+    height: 44px;
+    border-radius: var(--radius-md);
+    border: 1px solid var(--border-color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.3rem;
+    flex-shrink: 0;
+}
+
+.upcoming-info h4 {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    color: var(--marvel-red);
+    font-weight: 700;
+    letter-spacing: 0.06em;
+}
+
+.upcoming-info p {
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin: 0.15rem 0;
+}
+
+.upcoming-meta {
+    font-size: 0.82rem;
+    color: var(--text-secondary);
+}
+
+/* Habit Widget */
+.habit-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.65rem;
+}
+
+.habit-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.75rem 1rem;
+    background: #ffffff;
+    border-radius: var(--radius-md);
+    border: 1px solid var(--border-color);
+    box-shadow: var(--shadow-sm);
+}
+
+.habit-name {
+    font-size: 0.92rem;
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+.habit-streak-badge {
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: var(--warning);
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+}
+
+.habit-toggle-btn {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    border: 1.5px solid var(--border-color);
+    background: #ffffff;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.9rem;
+    font-weight: 700;
+    transition: var(--transition);
+}
+
+.habit-toggle-btn.done {
+    background: var(--success);
+    border-color: var(--success);
+    color: white;
+}
+
+.habit-toggle-btn.pending {
+    background: var(--marvel-light-red);
+    border-color: var(--marvel-red-border);
+    color: var(--marvel-red);
+}
+
+.habit-toggle-btn:hover {
+    transform: scale(1.1);
+}
+
+/* Productivity Breakdown */
+.score-breakdown {
+    display: flex;
+    flex-direction: column;
+    gap: 0.9rem;
+    margin-top: 1rem;
+}
+
+.breakdown-row {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+}
+
+.breakdown-meta {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    font-weight: 500;
+}
+
+.breakdown-val {
+    font-weight: 700;
+    color: var(--text-primary);
+}
